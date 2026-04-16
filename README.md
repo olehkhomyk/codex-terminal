@@ -1,4 +1,4 @@
-# Codex Terminal
+# Codex in Terminal
 
 **Share editor selections with the OpenAI [`codex`](https://www.npmjs.com/package/@openai/codex) CLI in one keystroke.**
 
@@ -47,7 +47,7 @@ IntelliJ IDEA, WebStorm, PyCharm, GoLand, PhpStorm, RubyMine, Android Studio, an
 ./gradlew buildPlugin
 ```
 
-Output: `build/distributions/codex-for-jetbrains-1.0.0.zip`.
+Output: `build/distributions/codex-in-terminal-1.0.0.zip`.
 
 In your IDE: `Settings → Plugins → ⚙ → Install Plugin from Disk…` and select the zip. Restart the IDE.
 
@@ -63,7 +63,7 @@ Or configure the plugin to use `npx @openai/codex` (no global install required).
 
 ## Keybindings
 
-Both shortcuts are rebindable under `Settings → Keymap → Plugins → Codex Terminal`.
+Both shortcuts are rebindable under `Settings → Keymap → Plugins → Codex in Terminal`.
 
 | Action | Windows/Linux | macOS |
 |---|---|---|

@@ -1,1 +1,1 @@
-rootProject.name = "codex-for-jetbrains"
+rootProject.name = "codex-in-terminal"

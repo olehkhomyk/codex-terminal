@@ -8,7 +8,7 @@ group = "com.github.codexjb"
 version = "1.0.0"
 
 val pluginId = "com.github.codexjb"
-val pluginName = "Codex Terminal"
+val pluginName = "Codex in Terminal"
 val pluginVersion = project.version.toString()
 val platformVersion = providers.gradleProperty("platformVersion").orElse("2025.3.3")
 val pluginSinceBuild = providers.gradleProperty("pluginSinceBuild").orElse("253")
