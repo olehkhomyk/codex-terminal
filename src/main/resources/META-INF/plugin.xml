@@ -1,0 +1,44 @@
+<idea-plugin>
+    <id>com.github.codexjb</id>
+    <name>Codex for JetBrains</name>
+    <vendor email="oleh.khomyk@gmail.com">Oleh Khomyk</vendor>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>org.jetbrains.plugins.terminal</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="Codex"
+                    anchor="right"
+                    factoryClass="com.github.codexjb.toolwindow.CodexToolWindowFactory"
+                    icon="/icons/codex.svg"/>
+        <projectConfigurable parentId="tools"
+                             id="com.github.codexjb.settings"
+                             displayName="Codex [Beta]"
+                             instance="com.github.codexjb.settings.CodexConfigurable"/>
+    </extensions>
+
+    <projectListeners>
+        <listener class="com.github.codexjb.listener.CodexToolWindowListener"
+                  topic="com.intellij.openapi.wm.ex.ToolWindowManagerListener"/>
+    </projectListeners>
+
+    <actions>
+        <action id="Codex.Launch"
+                class="com.github.codexjb.actions.LaunchCodexAction"
+                text="Launch Codex"
+                description="Open the Codex CLI in the IDE terminal">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <keyboard-shortcut keymap="$default"       first-keystroke="ctrl alt shift C"/>
+            <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="meta alt shift C"/>
+        </action>
+
+        <action id="Codex.InsertRef"
+                class="com.github.codexjb.actions.InsertCodexRefAction"
+                text="Insert File Reference into Codex"
+                description="Insert @path#Lstart-end into the running Codex terminal">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <keyboard-shortcut keymap="$default"       first-keystroke="ctrl alt K"/>
+            <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="meta alt K"/>
+        </action>
+    </actions>
+</idea-plugin>
