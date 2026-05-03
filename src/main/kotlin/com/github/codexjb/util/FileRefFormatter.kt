@@ -1,25 +1,26 @@
 package com.github.codexjb.util
 
+import com.github.codexjb.service.CodexSettings
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VfsUtilCore
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.openapi.vfs.LocalFileSystem
 
 /**
  * Formats an editor location as an `@path#Lstart-Lend` reference for the Codex CLI.
  *
- * Paths are resolved relative to the **project root** (so Codex, which runs with the
- * project root as its working directory, can resolve them directly). Line numbers
- * are 1-indexed and ranges use the `#Lstart-Lend` form (Codex requires the second `L`).
+ * Paths are resolved relative to the configured Codex working directory (or project root
+ * when the setting is blank), so Codex can resolve them directly. Line numbers are 1-indexed
+ * and ranges use the `#Lstart-Lend` form (Codex requires the second `L`).
  *
- * If the file lives outside the project root (e.g. an external library), falls back
- * to the absolute filesystem path.
+ * If the file lives outside that working directory (e.g. another module or an external
+ * library), falls back to the absolute filesystem path.
  */
 object FileRefFormatter {
 
     fun format(project: Project, vFile: VirtualFile, editor: Editor): String {
-        val rel = relativeToProjectRoot(project, vFile) ?: vFile.path
+        val rel = relativeToCodexWorkingDirectory(project, vFile) ?: vFile.path
         val doc = editor.document
         val sel = editor.selectionModel
         return if (sel.hasSelection()) {
@@ -39,9 +40,10 @@ object FileRefFormatter {
         }
     }
 
-    private fun relativeToProjectRoot(project: Project, vFile: VirtualFile): String? {
-        val basePath = project.basePath ?: return null
-        val baseDir = LocalFileSystem.getInstance().findFileByPath(basePath) ?: return null
+    private fun relativeToCodexWorkingDirectory(project: Project, vFile: VirtualFile): String? {
+        val rootPath = CodexSettings.getInstance(project).state.workingDirectory
+            .ifBlank { project.basePath ?: return null }
+        val baseDir = LocalFileSystem.getInstance().findFileByPath(rootPath) ?: return null
         return VfsUtilCore.getRelativePath(vFile, baseDir, '/')
     }
 }

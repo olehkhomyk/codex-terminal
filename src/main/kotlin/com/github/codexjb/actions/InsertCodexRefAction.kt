@@ -6,22 +6,24 @@ import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
+import com.intellij.openapi.fileEditor.FileDocumentManager
 
 class InsertCodexRefAction : AnAction() {
 
     override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.BGT
 
     override fun update(e: AnActionEvent) {
+        val editor = e.getData(CommonDataKeys.EDITOR)
         e.presentation.isEnabledAndVisible =
             e.project != null &&
-                e.getData(CommonDataKeys.EDITOR) != null &&
-                e.getData(CommonDataKeys.VIRTUAL_FILE) != null
+                editor != null &&
+                FileDocumentManager.getInstance().getFile(editor.document) != null
     }
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
         val editor = e.getData(CommonDataKeys.EDITOR) ?: return
-        val vFile = e.getData(CommonDataKeys.VIRTUAL_FILE) ?: return
+        val vFile = FileDocumentManager.getInstance().getFile(editor.document) ?: return
         val ref = FileRefFormatter.format(project, vFile, editor)
         // Trailing space so the user can immediately type a question after the ref.
         CodexTerminalService.getInstance(project).insertText("$ref ")

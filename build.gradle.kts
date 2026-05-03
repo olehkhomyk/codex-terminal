@@ -44,7 +44,7 @@ intellijPlatform {
             <ul>
               <li><b>One-click launch</b> &mdash; a sidebar icon (or <kbd>Ctrl/Cmd+Alt+Shift+C</kbd>) starts <code>codex</code> in a dedicated terminal tab.</li>
               <li><b>Selection &amp; caret aware</b> &mdash; single line <code>#L42</code>, range <code>#L12-L34</code>, no selection &rarr; current caret line.</li>
-              <li><b>Project-root relative paths</b> &mdash; references match exactly what Codex sees as its working directory.</li>
+              <li><b>Working-directory relative paths</b> &mdash; references match exactly what Codex sees as its working directory, with absolute paths for files outside it.</li>
               <li><b>Configurable command</b> &mdash; <code>codex</code>, <code>npx @openai/codex</code>, custom binaries, or WSL wrappers.</li>
             </ul>
             <p>Works across IntelliJ IDEA, WebStorm, PyCharm, GoLand, PhpStorm, RubyMine, and Android Studio.</p>

@@ -27,7 +27,7 @@ Inspired by the official [Claude Code JetBrains plugin](https://code.claude.com/
 | Caret on line 42, no selection | `@src/main/.../File.kt#L42` |
 | Single-line selection on line 42 | `@src/main/.../File.kt#L42` |
 
-Paths are relative to the project root, so they match Codex's working directory and resolve without extra context.
+Paths are relative to the configured Codex working directory. If a file is outside that directory, the plugin inserts its absolute path so Codex does not confuse it with a same-named file elsewhere.
 
 ## Features
 
