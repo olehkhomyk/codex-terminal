@@ -1,31 +1,30 @@
 # Codex in Terminal
 
-**Share editor selections with the OpenAI [`codex`](https://www.npmjs.com/package/@openai/codex) CLI in one keystroke.**
+**Share the current editor file with the OpenAI [`codex`](https://www.npmjs.com/package/@openai/codex) CLI in one keystroke.**
 
-The core feature: select any code in the editor, press a shortcut, and a precise file + line-range reference is typed straight into your running Codex session. No copy/paste, no re-typing paths, no re-explaining where the code lives.
+The core feature: press a shortcut in the editor, and a precise file reference is typed straight into your running Codex session. No copy/paste, no re-typing paths, no re-explaining where the file lives.
 
 Inspired by the official [Claude Code JetBrains plugin](https://code.claude.com/docs/en/jetbrains) — same UX, different backend.
 
 ## How it works
 
 1. Open any project. Click the **Codex** icon in the right-hand sidebar (or press `Ctrl/Cmd+Alt+Shift+C`). A terminal tab named `Codex` opens and runs the CLI.
-2. Switch to any editor. Select lines 12–34 of a file.
+2. Switch to any editor.
 3. Press `Ctrl+Alt+K` (Windows/Linux) or `Cmd+Alt+K` (macOS).
 4. The Codex terminal receives, at the cursor — without submitting:
 
    ```
-   @src/main/kotlin/com/github/codexjb/service/CodexTerminalService.kt#L12-L34 
+   @src/main/kotlin/com/github/codexjb/service/CodexTerminalService.kt
    ```
 
-5. Type your question after the reference and press Enter. Codex resolves the range and reads exactly those lines.
+5. Type your question after the reference and press Enter. Codex resolves the file from the inserted path.
 
 ### Reference format
 
 | Editor state | What gets inserted |
 |---|---|
-| Selection spanning lines 12–34 | `@src/main/.../File.kt#L12-L34` |
-| Caret on line 42, no selection | `@src/main/.../File.kt#L42` |
-| Single-line selection on line 42 | `@src/main/.../File.kt#L42` |
+| No selection | `@src/main/.../File.kt` |
+| Text selected | `@src/main/.../File.kt` |
 
 Paths are relative to the configured Codex working directory. If a file is outside that directory, the plugin inserts its absolute path so Codex does not confuse it with a same-named file elsewhere.
 
@@ -34,6 +33,7 @@ Paths are relative to the configured Codex working directory. If a file is outsi
 - **Insert file references from the editor** — the headline feature. `Ctrl+Alt+K` / `Cmd+Alt+K`, editor right-click menu, or bind your own shortcut.
 - **One-click launch** — click the Codex sidebar icon or press `Ctrl+Alt+Shift+C` / `Cmd+Alt+Shift+C` to drop straight into the CLI.
 - **Configurable command** — `Settings → Tools → Codex [Beta]`. Works with `codex`, `npx @openai/codex`, custom paths, or WSL wrappers like `wsl -d Ubuntu -- bash -lic "codex"`.
+- **Optional attention sound** — play a system sound when Codex appears to need confirmation or has finished responding.
 
 ## Supported IDEs
 
@@ -47,7 +47,7 @@ IntelliJ IDEA, WebStorm, PyCharm, GoLand, PhpStorm, RubyMine, Android Studio, an
 ./gradlew buildPlugin
 ```
 
-Output: `build/distributions/codex-in-terminal-1.0.0.zip`.
+Output: `build/distributions/codex-in-terminal-1.0.2.zip`.
 
 In your IDE: `Settings → Plugins → ⚙ → Install Plugin from Disk…` and select the zip. Restart the IDE.
 
@@ -78,11 +78,12 @@ Both shortcuts are rebindable under `Settings → Keymap → Plugins → Codex i
 |---|---|---|
 | Codex command | `codex` | Anything runnable in the integrated terminal shell. |
 | Working directory | *(project root)* | Where the shell starts. |
+| Play sound when Codex needs attention or finishes responding | Off | Uses the system beep for confirmations, gentle reminders, and likely ready prompts. |
 
 ## Known limitations
 
 - **Reworked Terminal (experimental)** — if you've enabled JetBrains' new terminal via Registry, text injection may not work. Stay on the classic terminal for now.
-- **Paths with spaces** — the unquoted `@path#Lx-Ly` format may misparse on some shells. File an issue if you hit this.
+- **Paths with spaces** — the unquoted `@path` format may misparse on some shells. File an issue if you hit this.
 
 ## Building
 

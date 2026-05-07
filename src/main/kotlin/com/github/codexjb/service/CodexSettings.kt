@@ -17,7 +17,11 @@ class CodexSettings : PersistentStateComponent<CodexSettings.State> {
          * Working directory to start the Codex shell in.
          * Empty string falls back to the project's base path at launch time.
          */
-        var workingDirectory: String = ""
+        var workingDirectory: String = "",
+        /**
+         * Play a system sound when Codex appears to need user attention or finishes responding.
+         */
+        var playNotificationSound: Boolean = false
     )
 
     private var state = State()

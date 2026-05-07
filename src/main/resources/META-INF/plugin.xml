@@ -35,7 +35,7 @@
         <action id="Codex.InsertRef"
                 class="com.github.codexjb.actions.InsertCodexRefAction"
                 text="Insert File Reference into Codex"
-                description="Insert @path#Lstart-end into the running Codex terminal">
+                description="Insert @path into the running Codex terminal">
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
             <keyboard-shortcut keymap="$default"       first-keystroke="ctrl alt K"/>
             <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="meta alt K"/>
