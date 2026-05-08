@@ -13,7 +13,7 @@
                     icon="/icons/codex.svg"/>
         <projectConfigurable parentId="tools"
                              id="com.github.codexjb.settings"
-                             displayName="Codex [Beta]"
+                             displayName="Codex in Terminal"
                              instance="com.github.codexjb.settings.CodexConfigurable"/>
     </extensions>
 
@@ -35,7 +35,7 @@
         <action id="Codex.InsertRef"
                 class="com.github.codexjb.actions.InsertCodexRefAction"
                 text="Insert File Reference into Codex"
-                description="Insert @path into the running Codex terminal">
+                description="Insert @path or @path#Lstart-Lend into the running Codex terminal">
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
             <keyboard-shortcut keymap="$default"       first-keystroke="ctrl alt K"/>
             <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="meta alt K"/>

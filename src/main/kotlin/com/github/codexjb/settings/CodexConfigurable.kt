@@ -20,7 +20,7 @@ class CodexConfigurable(private val project: Project) : Configurable {
     private lateinit var workDirField: TextFieldWithBrowseButton
     private lateinit var playSoundCheckbox: JBCheckBox
 
-    override fun getDisplayName(): String = "Codex [Beta]"
+    override fun getDisplayName(): String = "Codex in Terminal"
 
     override fun createComponent(): JComponent {
         commandField = JBTextField()

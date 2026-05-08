@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.3 — Selection-aware references
+
+### Fixed
+
+- Reference insertion now uses the expected mixed behavior:
+  - no selection inserts only `@path`;
+  - selected text inserts `@path#Lline` or `@path#Lstart-Lend`.
+- Selecting even one character now links the file plus the selected line number/range.
+- The settings page label now matches the plugin name: `Codex in Terminal`.
+
 ## 1.0.2 — Better confirmation sounds and file-only references
 
 ### Changed

@@ -24,7 +24,7 @@ class InsertCodexRefAction : AnAction() {
         val project = e.project ?: return
         val editor = e.getData(CommonDataKeys.EDITOR) ?: return
         val vFile = FileDocumentManager.getInstance().getFile(editor.document) ?: return
-        val ref = FileRefFormatter.format(project, vFile)
+        val ref = FileRefFormatter.format(project, vFile, editor)
         // Trailing space so the user can immediately type a question after the ref.
         CodexTerminalService.getInstance(project).insertText("$ref ")
     }

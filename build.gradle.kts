@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.github.codexjb"
-version = "1.0.2"
+version = "1.0.3"
 
 val pluginId = "com.github.codexjb"
 val pluginName = "Codex in Terminal"
@@ -33,17 +33,19 @@ intellijPlatform {
         name = pluginName
         version = pluginVersion
         description = """
-            <p><b>Share the current editor file with the <code>codex</code> CLI in one keystroke.</b></p>
+            <p><b>Share the current editor file or selection with the <code>codex</code> CLI in one keystroke.</b></p>
             <p>The core feature: press a shortcut in the editor, and a precise file reference is typed
-            straight into your running Codex session. No copy/paste, no re-typing paths,
-            no re-explaining where the file lives.</p>
-            <p>Example:</p>
+            straight into your running Codex session. If text is selected, the reference includes
+            the selected line range. No copy/paste, no re-typing paths, no re-explaining where the file lives.</p>
+            <p>Example with no selection:</p>
             <pre><code>@src/main/kotlin/com/github/codexjb/service/CodexTerminalService.kt</code></pre>
+            <p>Example with selected text:</p>
+            <pre><code>@src/main/kotlin/com/github/codexjb/service/CodexTerminalService.kt#L25-L40</code></pre>
             <p>Codex resolves the reference automatically from the inserted path.</p>
             <p>Additional features:</p>
             <ul>
               <li><b>One-click launch</b> &mdash; a sidebar icon (or <kbd>Ctrl/Cmd+Alt+Shift+C</kbd>) starts <code>codex</code> in a dedicated terminal tab.</li>
-              <li><b>Editor file references</b> &mdash; inserts the current editor file path without adding a line suffix.</li>
+              <li><b>Editor file references</b> &mdash; inserts the current editor file path, or the selected line range when text is selected.</li>
               <li><b>Working-directory relative paths</b> &mdash; references match exactly what Codex sees as its working directory, with absolute paths for files outside it.</li>
               <li><b>Optional attention sound</b> &mdash; play a system sound when Codex appears to need confirmation or has finished responding.</li>
               <li><b>Configurable command</b> &mdash; <code>codex</code>, <code>npx @openai/codex</code>, custom binaries, or WSL wrappers.</li>
@@ -51,11 +53,12 @@ intellijPlatform {
             <p>Works across IntelliJ IDEA, WebStorm, PyCharm, GoLand, PhpStorm, RubyMine, and Android Studio.</p>
         """.trimIndent()
         changeNotes = """
-            <p><b>1.0.2 &mdash; better confirmation sounds and file-only references</b></p>
+            <p><b>1.0.3 &mdash; selection-aware references</b></p>
             <ul>
+              <li><b>Fixed reference formatting</b>: no selection now inserts only <code>@path</code>, while selected text inserts <code>@path#Lstart-Lend</code>.</li>
+              <li><b>Selection ranges are back</b>: selecting even one character now links the file and the selected line number/range.</li>
               <li><b>Improved confirmation sounds</b>: sound notifications now track active confirmation prompts, remind while a prompt is waiting, and stop as soon as the terminal shows an answer or continued output.</li>
               <li><b>Improved confirmation detection</b>: catches more approval/permission/yes-no style prompts without re-triggering from stale terminal history.</li>
-              <li><b>Changed file references</b>: the insert shortcut now sends only <code>@path</code>, without adding line numbers from the caret or selection.</li>
               <li><b>Fixed file reference insertion</b>: the shortcut now uses the actual open editor document, so same-named files in different folders no longer resolve to the wrong file.</li>
               <li><b>Fixed Codex terminal focus</b>: clicking the Codex icon now selects the existing Codex terminal tab instead of merely opening whatever Terminal tab was active.</li>
               <li><b>Fixed stopped agent recovery</b>: if the Codex tab is still open but the agent process has exited, clicking the icon reruns the configured Codex command in that tab.</li>
